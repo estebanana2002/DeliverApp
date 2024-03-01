@@ -2,3 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.custom-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 2000;
+  top: 30px;
+  left: 0;
+  white-space: normal;
+  max-width: 200px;
+  word-wrap: break-word;
+}
