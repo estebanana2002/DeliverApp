@@ -38,10 +38,8 @@ export default class LoginPageComponent implements OnInit {
     });
   }
 
-
   public validateController(inputField: string) {
     const input = this.registerForm.get(inputField);
-
     if (input?.touched) {
       if (input?.hasError('required')) {
         return this.validators.required();
