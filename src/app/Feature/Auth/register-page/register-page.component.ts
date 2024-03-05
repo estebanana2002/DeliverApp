@@ -35,9 +35,9 @@ export default class RegisterPageComponent {
     ],
       username: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      matricula: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPass: ['', [Validators.required]],
-      matricula: ['', [Validators.required]],
     });
   }
 

@@ -11,12 +11,17 @@ export const routes: Routes = [
       {
         path:'register',
         loadComponent: () => import('./Feature/Auth/register-page/register-page.component'),
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'login',
       }
     ]
   },
   {
     path: 'home',
-    loadComponent: () => import('./Feature/Home/Home.component'),
+    loadComponent: () => import('./home/home.component'),
   },
   {
     path: '**',
