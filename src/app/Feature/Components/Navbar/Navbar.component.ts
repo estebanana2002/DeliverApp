@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { routes } from '../../../app.routes';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule
   ],
   templateUrl: './Navbar.component.html',
   styleUrls: ['./Navbar.component.css'],
@@ -15,9 +18,24 @@ export class NavbarComponent {
   public isMenuOpen: boolean = false;
   public touchStartX!: number;
 
+  public myRoutes = routes
+  .map(route => route.children ?? [])
+  .flat()
+  .filter(route => route && !route.path?.includes('**'));
+
+
+  constructor() {
+    console.log(this.myRoutes);
+
+  }
+
   public toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+  public backButton() {
+    window.history.back();
+  }
+
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent) {

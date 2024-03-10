@@ -1,0 +1,57 @@
+<section>
+  <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
+    <div
+      class="relative left-1/2 -z-10 aspect-[1155/678]
+      w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr
+      from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+      style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+    </div>
+  </div>
+  <div class="grid grid-cols-12">
+    <div class="col-span-6">
+      <div class="flex items-center justify-center mx-4 lg:mx-5 sm:mt-5">
+          <app-form-bazar [prodSignal]="products"></app-form-bazar>
+      </div>
+    </div>
+    <div class="col-span-6 w-full">
+      <div class="flex items-center justify-center mx-4 lg:mx-5 sm:mt-5">
+        <div class="w-full isolate bg-white shadow-xl px-6 lg:px-8 rounded-md mt-3 cols-span-6">
+          <div class="w-full">
+                <div class="flex items-center flex-col p-6">
+                    <h3 class="flex text-2xl font-semibold leading-6 tracking-tighter">Lista de productos</h3>
+                    <p class="mt-1.5 text-sm font-medium">
+                      Aqui aparecen los productos agregados!
+                    </p>
+                </div>
+                <div class="p-6 pt-0">
+                  @for ( prod of products(); track prod; let i = $index ) {
+                    <div class="shadow-xl flex items-center justify-between h-37 border-2 border-zinc-100 rounded-lg bg-white mb-4 mx-2 hover:border-zinc-200 hover:shadow-lg transform hover:scale-105 transition-transform">
+                      <div class="flex items-center">
+                        @defer(on viewport) {
+                          <img class="rounded-full w-16 h-16 p-1 object-cover object-center" [src]="prod.urlImage" alt="Image" />
+                        } @placeholder {
+                          <p class="flex items-center rounded-full justify-center w-16 h-16 p-4 bg-gradient-to-r from-slate-200 to-slate-400 animate-pulse text-sm">Cargando</p>
+                        }
+                        <div class="ml-2">
+                          <h1>{{i + 1}}° {{prod.name}}</h1>
+                          <p class="text font-light text-gray-500">Precio general: <strong>{{prod.generalPrice | currency}}</strong></p>
+                          <p class="text font-light text-gray-500">Precio de venta: <strong>{{prod.soldPrice | currency}}</strong></p>
+                        </div>
+                      </div>
+                      <div class="items-end justify-end">
+                        <button appTooltip="Borrar"
+                        class="px-4 py-1 me-2 text-sm text-red-400 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
