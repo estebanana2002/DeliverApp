@@ -1,37 +1,32 @@
-/* Estilos para el overlay */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Color oscuro con transparencia */
-  z-index: 999; /* Z-index alto para estar sobre el contenido */
-  display: none; /* Inicialmente oculto */
-  cursor: pointer; /* Cambiar el cursor al hacer clic */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
 }
 
-/* Estilos para el overlay cuando el menú está abierto */
 .overlay.open {
-  display: block; /* Mostrar el overlay */
+  display: block;
 }
 
-/* Estilos para el menú */
 .menu {
-  width: 30%; /* Ancho del menú */
-  height: 100%; /* Altura del menú */
-  background-color: #fff; /* Color de fondo del menú */
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 1000; /* Z-index más alto que el overlay */
-  transition: transform 0.3s ease; /* Transición de animación */
-  transform: translateX(100%); /* Oculta el menú fuera de la pantalla por defecto */
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  transform: translateX(100%);
 }
 
-/* Estilos para el menú cuando está abierto */
 .menu.open {
-  transform: translateX(0); /* Muestra el menú deslizándolo hacia la izquierda */
+  transform: translateX(0);
 }
 
 @media (max-width: 639px) {

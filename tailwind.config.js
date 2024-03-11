@@ -36,6 +36,12 @@ module.exports = {
         'extrabold': 800, // Extra negrita
         'black': 900, // Negro (máxima negrita)
       },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-0.3deg)' },
+          '50%': { transform: 'rotate(0.3deg)' },
+        }
+      },
     },
   },
   plugins: [],

@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { routes } from '../../../app.routes';
+import { DirectiveModule } from '../../../Core/Directives/Directives.module';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    DirectiveModule
   ],
   templateUrl: './Navbar.component.html',
   styleUrls: ['./Navbar.component.css'],
@@ -18,24 +20,19 @@ export class NavbarComponent {
   public isMenuOpen: boolean = false;
   public touchStartX!: number;
 
-  public myRoutes = routes
-  .map(route => route.children ?? [])
+  public allRoutes = routes
+  .map(route => route.path === 'DeliverAppSystem' ? route.children : [])
   .flat()
   .filter(route => route && !route.path?.includes('**'));
 
 
-  constructor() {
-    console.log(this.myRoutes);
-
-  }
+  constructor(
+    private router: Router
+  ) {  }
 
   public toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-  public backButton() {
-    window.history.back();
-  }
-
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent) {
@@ -46,8 +43,16 @@ export class NavbarComponent {
   onTouchEnd(event: TouchEvent) {
     const touchEndX = event.changedTouches[0].clientX;
     const deltaX = touchEndX - this.touchStartX;
-    if (deltaX < -50) { // Se deslizó de derecha a izquierda
+    if (deltaX < -50) {
       this.isMenuOpen = true;
     }
+  }
+
+  public showButton() {
+    return this.router.url !== '/DeliverAppSystem/dashboard';
+  }
+
+  public logout() {
+    this.router.navigate(['/auth/login']);
   }
 }

@@ -19,17 +19,18 @@ export const routes: Routes = [
       }
     ]
   },
-
   {
     path: 'DeliverAppSystem',
     loadComponent: () => import('./home/home.component'),
     children: [
       {
         path: 'dashboard',
+        title: 'Panel de administrador',
         loadComponent: () => import('./Feature/products/dashboard/dashboard.component'),
       },
       {
         path: 'bazar-list',
+        title: 'Bazar',
         loadComponent: () => import('./Feature/bazar/bazar-list/bazar-list.component'),
       },
       {

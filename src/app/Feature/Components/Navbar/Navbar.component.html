@@ -1,13 +1,14 @@
 <header class="bg-egg placeholder-opacity-90 backdrop-filter backdrop-blur-lg w-full h-20 md:rounded-none rounded-b-3xl">
   <nav class="h-full w-full flex justify-between">
     <div class="flex justify-start items-center h-full md:ms-7 ms-5">
-      <button type="button" appTooltip="Regresar"
-      (click)="backButton()"
-      class="inline-flex text-main py-1 text-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-          <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-        </svg>
-      </button>
+      @if(showButton()) {
+        <button type="button" backButton
+        class="inline-flex text-main py-1 text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      }
     </div>
     <div class="flex justify-end items-center h-full me-5">
       <h1
@@ -25,16 +26,49 @@
 </header>
 
 <div class="overlay" [class.open]="isMenuOpen" (click)="toggleMenu()"></div>
+
 <div [ngClass]="{'menu': true, 'open bg-secondary': isMenuOpen}">
   <header class="bg-egg placeholder-opacity-90 backdrop-filter backdrop-blur-lg w-full h-20 md:rounded-none rounded-b-3xl">
     <nav class="h-full w-full flex justify-center items-center">
       <div class="flex justify-end items-center h-full me-5">
         <h1
           class="inline-flex text-main py-3 px-3 text-2xl font-bold font">
-            Menú
+            DeliverApp Menú
         </h1>
       </div>
     </nav>
   </header>
+  <section>
+    <div class="my-3">
+      @for( route of allRoutes; track route; let i = $index ) {
+        <div [routerLink]="route?.path" routerLinkActive="bg-egg-100 border-slate-400" (click)="toggleMenu()"
+        class="flex justify-between border-y p-4 my-4 shadow-md cursor-pointer hover:shadow-egg-100 hover:animate-[wiggle_1s_ease-in-out_infinite]">
+          <div class="ms-2">
+            {{ route?.title }}
+          </div>
+          <div class="me-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+  <footer class="absolute bottom-0 w-full">
+    <section class="p-2">
+      <button type="button" (click)="logout()"
+      class="flex justify-between w-full border-2 border-red-400 text-red-600 p-2 rounded-lg transition hover:bg-red-500 hover:text-bone">
+        <div class="ms-4">
+          Cerrar sesion
+        </div>
+        <div class="me-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 0 0 6 5.25v13.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5V15a.75.75 0 0 1 1.5 0v3.75a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3V5.25a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3V9A.75.75 0 0 1 15 9V5.25a1.5 1.5 0 0 0-1.5-1.5h-6Zm10.72 4.72a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H9a.75.75 0 0 1 0-1.5h10.94l-1.72-1.72a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </button>
+    </section>
+  </footer>
 </div>
 
