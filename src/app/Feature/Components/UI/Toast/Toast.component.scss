@@ -1,0 +1,68 @@
+
+
+// Default configuration
+app-toast, .toast, .success, .warning, .danger { z-index: 3; }
+
+.toast, .success, .warning, .danger {
+  position: fixed;
+  background-color: #FFFFFF;
+  top: 0;
+  right: 0rem;
+  margin: 0rem 1rem 1rem 1rem;
+  display: inline-flex;
+  min-width: 280px;
+  min-height: 80px;
+  max-height: 70px;
+  box-shadow: 6px 6px 12px #00000040;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1.5rem .5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+
+  transition: top 0.5s ease;
+}
+
+.toast:nth-child(n), .success:nth-child(n), .warning:nth-child(n), .danger:nth-child(n) {
+  --toast-index: calc(var(--total-toasts) - var(--toast-order, 0));
+  top: calc((60px + 2rem) * var(--toast-index));
+}
+
+.close-btn {
+  color: #8f8f8f;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: #616161;
+}
+
+.icon-container {
+  margin-right: 1rem;
+}
+
+// Default toast
+.toast {
+  border: 1px solid #1D1D1D;
+  border-left: 6px solid #1D1D1D;
+}
+
+// Success toast
+.success {
+  border: 1px solid #28a745;
+  border-left: 6px solid #28a745;
+}
+
+// Warning toast
+.warning {
+  border: 1px solid #ffc107;
+  border-left: 6px solid #ffc107;
+}
+
+// Danger toast
+.danger {
+  border: 1px solid #dc3545;
+  border-left: 6px solid #dc3545;
+}
+
+

@@ -6,6 +6,7 @@ import { CardProductComponent } from '../Feature/Components/Card-product/Card-pr
 import { Router, RouterModule } from '@angular/router';
 import { routes } from '../app.routes';
 import { NavigationService } from '../Controller/Services/Navigation.service';
+import { ToastComponent } from '../Feature/Components/UI/Toast/Toast.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { NavigationService } from '../Controller/Services/Navigation.service';
     DirectiveModule,
     NavbarComponent,
     CardProductComponent,
-    RouterModule
+    RouterModule,
+    ToastComponent,
   ],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

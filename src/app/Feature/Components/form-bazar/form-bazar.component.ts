@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { validateSoldPrice } from '../../../Core/Validators/soldPrice.validators';
 import { DirectiveModule } from '../../../Core/Directives/Directives.module';
+import { ToastComponent } from '../UI/Toast/Toast.component';
+import { ToastService } from '../../../Controller/Services/Toast.service';
 
 @Component({
   selector: 'app-form-bazar',
@@ -11,11 +13,14 @@ import { DirectiveModule } from '../../../Core/Directives/Directives.module';
     CommonModule,
     ReactiveFormsModule,
     DirectiveModule,
+    ToastComponent,
   ],
   templateUrl: './form-bazar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBazarComponent {
+  @Input({required: true}) prodSignal!: any;
+
   private fb = inject(FormBuilder);
   public registerForm!: FormGroup;
   public showPass: boolean = false;
@@ -28,12 +33,11 @@ export class FormBazarComponent {
   };
 
 
-  @Input({required: true}) prodSignal!: any;
-
-  constructor() {
+  constructor(
+    private toastS: ToastService
+  ) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(5)]
-    ],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       urlImage: ['', [Validators.required]],
       generalPrice: ['', [Validators.required, Validators.min(1)]],
       soldPrice: ['', [Validators.required]],
@@ -42,13 +46,12 @@ export class FormBazarComponent {
 
   public saveProd() {
     if ( this.registerForm.valid ) {
-
       const prods = this.prodSignal();
       console.log(this.prodSignal, 'asdasd');
       const newProd = [... prods, this.registerForm.value];
       console.log(newProd);
-
       this.prodSignal.set(newProd);
+      this.toastS.openToast('Se agrego el producto con exito!', 'success', 'Cerrar');
     } else {
       this.registerForm.markAllAsTouched();
     }

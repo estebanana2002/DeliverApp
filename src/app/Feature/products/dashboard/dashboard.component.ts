@@ -24,4 +24,6 @@ export default class DashboardComponent {
       category: 'Category 2'
     }
   ];
+
+
 }

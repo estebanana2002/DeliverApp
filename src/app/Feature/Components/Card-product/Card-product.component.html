@@ -14,7 +14,7 @@
             <h4 class="md:text-3xl text-2xl h-full">Precio: $450.00</h4>
           </div>
           <div class="flex justify-end">
-            <button
+            <button type="button" (click)="showToast()"
             class="border border-egg bg-egg text-main py-2 px-1 rounded-xl flex justify-between items-center hover:bg-egg-700 hover:border-egg-700 mt-4">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mx-1">
                 <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
@@ -25,6 +25,29 @@
           </div>
         </section>
       </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="grid grid-cols-6">
+    <div class="col-span-2">
+      <button (click)="success()"
+      class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
+          success
+      </button>
+    </div>
+    <div class="col-span-2">
+      <button (click)="danger()"
+      class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
+          danger
+      </button>
+    </div>
+    <div class="col-span-2">
+      <button (click)="warning()"
+      class="inline-flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg">
+          warning
+      </button>
     </div>
   </div>
 </section>
