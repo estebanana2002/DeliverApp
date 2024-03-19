@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, type OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DirectiveModule } from '../../../Core/Directives/Directives.module';
+import { AuthService } from '../Services/auth.service';
+import { ToastService } from '../../../Controller/Services/Toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -31,13 +34,32 @@ export default class LoginPageComponent implements OnInit {
     repeated: () => `Esta matricula tiene reportes de robo!`,
   };
 
-  constructor() {
+  constructor(
+    private authS: AuthService,
+    private toastS: ToastService,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
+  public logIn() {
+    if ( this.registerForm.valid ) {
+      this.authS.logIn(this.registerForm.value).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.toastS.openToast(`Bienvenido ${res.user.username}!`, 'success', 'Cerrar');
+          this.router.navigate(['/DeliverAppSystem/dashboard'])
+        }, (error: any) => {
+          this.toastS.openToast('Credenciales incorrectas!', 'danger', 'Cerrar');
+        }
+      );
+    } else {
+      this.toastS.openToast('Rellene los campos correctamente!', 'danger', 'Cerrar');
+    }
+  }
 
   public validateController(inputField: string) {
     const input = this.registerForm.get(inputField);
