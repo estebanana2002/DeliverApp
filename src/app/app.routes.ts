@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { isLogginGuard } from './Core/Guards/is-loggin.guard';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,7 @@ export const routes: Routes = [
       {
         path:'register',
         loadComponent: () => import('./Feature/Auth/register-page/register-page.component'),
+        canActivate: [isLogginGuard]
       },
       {
         path: '**',
