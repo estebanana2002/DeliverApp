@@ -19,7 +19,6 @@ export class AuthService {
 
   public logIn(credentials: Credentials) {
     return this.http.post(`${environment.api}auth/login`, credentials).pipe(
-      // tslint:disable-next-line:no-shadowed-variable
       map((response: any) => {
         // login successful if there's a jwt token in the response
         if (response.token) {
@@ -32,13 +31,16 @@ export class AuthService {
   }
 
   public verifyToken(): boolean {
-    const token = JSON.parse(localStorage.getItem('token') || '{}') || {};
-    console.log(token, 'tokenFromLocal');
+    if ( typeof localStorage !== 'undefined' ) {
+      const token = JSON.parse(localStorage.getItem('token') || '{}') || {};
+      console.log(token, 'tokenFromLocal');
 
-    if ( token.access_token ) {
-      return true;
-    } else {
-      return false;
+      if ( token.access_token ) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 }

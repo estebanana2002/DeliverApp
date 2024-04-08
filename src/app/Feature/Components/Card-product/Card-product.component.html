@@ -1,17 +1,19 @@
 <section>
   <div class="overflow-x-auto whitespace-nowrap">
-    <div class="inline-block py-4 px-2 md:w-1/3 w-3/4" *ngFor="let i of [1,1,1,1,1,1,1]">
+    <div class="inline-block py-4 px-2 md:w-1/3 w-3/4" *ngFor="let prod of products">
       <div class="h-full overflow-hidden bg-secondary rounded-lg">
         <header class="p-2">
           <img class="lg:h-48 md:h-44 w-full object-cover object-center rounded-md"
-          src="https://imgs.search.brave.com/FqY2_o-KC8SVQg9UOux5P-0sqIf-Tfxsz4B-L36s4VM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb25j/ZXB0by5kZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMy8wMS9v/cm8tbWluZXJhbC1t/ZXRhbC1lbGVtZW50/by5qcGc" alt="Mineral">
+          [src]="prod.urlImage" alt="Product Image">
+          <!-- <img class="lg:h-48 md:h-44 w-full object-cover object-center rounded-md"
+          src="https://imgs.search.brave.com/FqY2_o-KC8SVQg9UOux5P-0sqIf-Tfxsz4B-L36s4VM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb25j/ZXB0by5kZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMy8wMS9v/cm8tbWluZXJhbC1t/ZXRhbC1lbGVtZW50/by5qcGc" alt="Mineral"> -->
         </header>
         <section class="p-2 text-bone">
           <div class="lg:text-xl text-xl">
-            <h1>Mineral: Oro puro</h1>
+            <h1>{{ prod.name }}</h1>
           </div>
           <div class="flex justify-between items-center">
-            <h4 class="md:text-3xl text-2xl h-full">Precio: $450.00</h4>
+            <h4 class="md:text-3xl text-2xl h-full">Precio: {{ prod.soldPrice }}</h4>
           </div>
           <div class="flex justify-end">
             <button type="button" (click)="showToast()"

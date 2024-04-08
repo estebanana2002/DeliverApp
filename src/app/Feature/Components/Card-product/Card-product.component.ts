@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ToastService } from '../../../Controller/Services/Toast.service';
+import { Product } from '../../../Data/Interfaces/Product.interface';
 
 @Component({
   selector: 'app-card-product',
@@ -12,7 +13,7 @@ import { ToastService } from '../../../Controller/Services/Toast.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardProductComponent {
-  @Input({required: true}) products!: any[];
+  @Input({required: true}) products!: Product[];
 
   constructor(
     private toastS: ToastService

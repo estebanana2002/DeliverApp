@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { isLogginGuard } from './Core/Guards/is-loggin.guard';
+import { noLogginGuard } from './Core/Guards/no-loggin.guard';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,7 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./Feature/Auth/login-page/login-page.component'),
+        canActivate: [noLogginGuard]
       },
       {
         path:'register',
@@ -29,11 +31,13 @@ export const routes: Routes = [
         path: 'dashboard',
         title: 'Panel de administrador',
         loadComponent: () => import('./Feature/products/dashboard/dashboard.component'),
+        canActivate: [isLogginGuard]
       },
       {
         path: 'bazar-list',
         title: 'Bazar',
         loadComponent: () => import('./Feature/bazar/bazar-list/bazar-list.component'),
+        canActivate: [isLogginGuard]
       },
       {
         path: '**',
