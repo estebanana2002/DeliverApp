@@ -7,6 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 import { routes } from '../app.routes';
 import { NavigationService } from '../Controller/Services/Navigation.service';
 import { ToastComponent } from '../Feature/Components/UI/Toast/Toast.component';
+import { AuthService } from '../Feature/Auth/Services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -29,17 +30,22 @@ export default class HomeComponent {
   .filter(route => route && !route.path?.includes('**'));
 
   public touchStartX!: number;
-  public signalM = this.navigationS.signalMenu;
+  public signalM = this._navigationS.signalMenu;
   constructor(
-    private navigationS: NavigationService,
+    private _navigationS: NavigationService,
+    private _authS: AuthService,
     private router: Router
-  ) { }
+  ) {
+    console.log(this.allRoutes, 'rutas padres');
+
+  }
 
   public closeMenu() {
-    this.navigationS.signalMenu.set(false);
+    this._navigationS.signalMenu.set(false);
   }
 
   public logout() {
+    this._authS.logOut();
     this.router.navigate(['/auth/login']);
   }
 
@@ -53,7 +59,7 @@ export default class HomeComponent {
     const touchEndX = event.changedTouches[0].clientX;
     const deltaX = touchEndX - this.touchStartX;
     if (deltaX < -50) {
-      this.navigationS.signalMenu.set(true);
+      this._navigationS.signalMenu.set(true);
     }
   }
 

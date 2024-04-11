@@ -40,6 +40,28 @@ export const routes: Routes = [
         canActivate: [isLogginGuard]
       },
       {
+        path: 'clients',
+        title: 'Clientes',
+        loadComponent: () => import('./Feature/Clients/dashboard/dashboard.component'),
+        children: [
+          {
+            path: 'list',
+            title: 'Lista de usuarios',
+            loadComponent: () => import('./Feature/Components/client-list/client-list.component'),
+          },
+          {
+            path: 'register',
+            title: 'Registro de usuarios',
+            loadComponent: () => import('./Feature/Components/client-form/client-form.component'),
+          },
+          {
+            path: '**',
+            pathMatch: 'full',
+            redirectTo: 'register',
+          }
+        ]
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'dashboard',

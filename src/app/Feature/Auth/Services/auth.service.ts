@@ -26,8 +26,18 @@ export class AuthService {
           localStorage.setItem('token', JSON.stringify(response.token.original));
         }
         return response;
-      }),
+      })
     );
+  }
+
+  public logOut() {
+    localStorage.removeItem('token');
+    return this.http.delete(`${environment.api}auth/logout`).pipe(
+      map((response: any) => {
+
+      })
+    );
+    // remove user from local storage to log user out
   }
 
   public verifyToken(): boolean {
