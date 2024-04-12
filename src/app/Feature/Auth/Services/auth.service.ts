@@ -37,13 +37,11 @@ export class AuthService {
 
       })
     );
-    // remove user from local storage to log user out
   }
 
   public verifyToken(): boolean {
     if ( typeof localStorage !== 'undefined' ) {
       const token = JSON.parse(localStorage.getItem('token') || '{}') || {};
-      console.log(token, 'tokenFromLocal');
 
       if ( token.access_token ) {
         return true;

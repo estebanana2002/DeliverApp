@@ -24,7 +24,6 @@ export class NavigationService {
       if (event instanceof NavigationEnd) {
         if ( event.urlAfterRedirects !== '/DeliverAppSystem/dashboard') {
           this.history.push(event.urlAfterRedirects);
-          console.log(this.history);
         }
 
         this.setBackButton()

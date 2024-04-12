@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { routes } from '../../../app.routes';
 import path from 'path';
@@ -20,8 +20,15 @@ export default class DashboardComponent {
   .map(route => route.path === 'DeliverAppSystem' ? route.children?.filter(route => route.path === 'clients') : [])
   .flat();
 
+  public isHeaderAtTop = true;
+
   constructor() {
     this.myRoutes = this.myRoutes[0].children.filter((route: any) => route.path !== '**')
-    console.log(this.myRoutes, 'rutas');
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any) {
+    const scrollTop = window.scrollY;
+    this.isHeaderAtTop = scrollTop === 0; // Verifica si el desplazamiento vertical es 0
   }
 }

@@ -8,13 +8,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./Feature/Auth/login-page/login-page.component'),
-        canActivate: [noLogginGuard]
-      },
-      {
-        path:'register',
-        loadComponent: () => import('./Feature/Auth/register-page/register-page.component'),
-        canActivate: [isLogginGuard]
+        canActivate: [noLogginGuard],
+        loadComponent: () => import('./Feature/Auth/login-page/login-page.component')
       },
       {
         path: '**',
@@ -30,14 +25,14 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         title: 'Panel de administrador',
-        loadComponent: () => import('./Feature/products/dashboard/dashboard.component'),
-        canActivate: [isLogginGuard]
+        canActivate: [isLogginGuard],
+        loadComponent: () => import('./Feature/products/dashboard/dashboard.component')
       },
       {
         path: 'bazar-list',
         title: 'Bazar',
-        loadComponent: () => import('./Feature/bazar/bazar-list/bazar-list.component'),
-        canActivate: [isLogginGuard]
+        canActivate: [isLogginGuard],
+        loadComponent: () => import('./Feature/bazar/bazar-list/bazar-list.component')
       },
       {
         path: 'clients',
@@ -47,12 +42,14 @@ export const routes: Routes = [
           {
             path: 'list',
             title: 'Lista de usuarios',
-            loadComponent: () => import('./Feature/Components/client-list/client-list.component'),
+            canActivate: [isLogginGuard],
+            loadComponent: () => import('./Feature/Components/client-list/client-list.component')
           },
           {
             path: 'register',
             title: 'Registro de usuarios',
-            loadComponent: () => import('./Feature/Components/client-form/client-form.component'),
+            canActivate: [isLogginGuard],
+            loadComponent: () => import('./Feature/Components/client-form/client-form.component')
           },
           {
             path: '**',

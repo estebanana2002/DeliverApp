@@ -1,7 +1,7 @@
 
 
 // Default configuration
-app-toast, .toast, .success, .warning, .danger { z-index: 3; }
+app-toast, .toast, .success, .warning, .danger { z-index: 100; }
 
 .toast, .success, .warning, .danger {
   position: fixed;

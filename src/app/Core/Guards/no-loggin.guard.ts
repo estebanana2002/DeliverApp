@@ -9,7 +9,7 @@ export const noLogginGuard: CanActivateFn = (route, state) => {
   if ( !_authS.verifyToken() ) {
     return true;
   } else {
-    _router.navigateByUrl('/auth/register');
+    _router.navigateByUrl('/DeliverAppSystem/dashboard');
     return false;
   }
 };

@@ -1,6 +1,6 @@
 <section>
-  <div class="flex items-center justify-center mx-4 lg:mx-5 sm:mt-5">
-    <div class="isolate bg-white shadow-xl px-6 lg:px-8 rounded-md mt-3">
+  <div class="flex items-center justify-center p-4 md:p-0">
+    <div class="bg-white shadow-xl sm:p-4 px-0 lg:px-8 rounded-md mt-3 md:w-auto w-full">
       <div class="">
         <div class="flex items-center flex-col p-6">
           <h3 class="flex text-2xl font-semibold leading-6 tracking-tighter">Registro de usuarios</h3>
@@ -8,8 +8,8 @@
             Rellene correctamente el formulario.
           </p>
         </div>
-        <div class="p-6 pt-0">
-          <form [formGroup]="registerForm">
+        <div class="sm:px-4 sm:py-0 p-6 pt-0">
+          <form [formGroup]="registerForm" (ngSubmit)="saveUser()">
             <div>
               <div class="grid gap-1 mb-4 grid-cols-12">
                 <div class="md:col-span-12 col-span-12">
@@ -38,14 +38,14 @@
                     </div>
 
                     </div>
-                    <input type="text" name="fullname" placeholder="Nombre"
-                      autocomplete="on" formControlName="fullname"
+                    <input type="text" name="name" placeholder="Nombre"
+                      autocomplete="on" formControlName="name"
                       class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7 text-foreground">
                   </div>
-                  @if ( validateController('fullname') ) {
-                    <small class="text-red-500">{{validateController('fullname')}}</small>
-                  } @else if (registerForm.controls['fullname'].errors?.['noEstebanana'] ) {
-                    <small class="text-red-500">{{validateController('fullname')}}</small>
+                  @if ( validateController('name') ) {
+                    <small class="text-red-500">{{validateController('name')}}</small>
+                  } @else if (registerForm.controls['name'].errors?.['noEstebanana'] ) {
+                    <small class="text-red-500">{{validateController('name')}}</small>
                   }
                 </div>
               </div>
@@ -157,6 +157,29 @@
                 <div class="group relative rounded-lg border border-slate-400 focus-within:border-orange-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-orange-300/30">
                   <div class="flex justify-between">
                     <label class="text-xs font-medium text-muted-foreground text-gray-500 group-focus-within:text-slate-800">
+                      Role
+                    </label>
+                  </div>
+                  <select type="text" name="role_id" placeholder="role_id"
+                    autocomplete="on" formControlName="role_id"
+                    class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7 text-foreground">
+                    <option value="0" selected disabled>Seleccione una opcion</option>
+                    @for (role of roles; track $index) {
+                      <option value="1">{{ role.role }}</option>
+                    }
+                  </select>
+                  </div>
+                  @if ( validateController('role_id') ) {
+                    <small class="text-red-500">{{validateController('role_id')}}</small>
+                  }
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div>
+                <div class="group relative rounded-lg border border-slate-400 focus-within:border-orange-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-orange-300/30">
+                  <div class="flex justify-between">
+                    <label class="text-xs font-medium text-muted-foreground text-gray-500 group-focus-within:text-slate-800">
                       Contraseña
                     </label>
                     <div class="absolute right-3 translate-y-2"
@@ -221,18 +244,6 @@
                   }
               </div>
             </div>
-          <!--
-            <div class="mt-4 flex items-center justify-between">
-              <label class="flex items-center gap-2">
-                <input type="checkbox" name="remember"
-                  class="outline-none focus:outline focus:outline-sky-300">
-                <span class="text-xs">Remember me</span>
-              </label>
-              <a class="text-sm font-medium text-foreground underline" href="/forgot-password">
-                Forgot password?
-              </a>
-            </div>
-          -->
 
             <div class="mt-4 flex items-center justify-between">
               <label class="flex items-center gap-2">
@@ -240,15 +251,10 @@
                   class="outline-none focus:outline focus:outline-sky-300">
                 <span class="text-xs">{{showPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}}</span>
               </label>
-              <!--
-                <a class="text-sm font-medium text-foreground underline" href="/forgot-password">
-                  Forgot password?
-                </a>
-              -->
             </div>
 
-            <div class="mt-4 flex items-center justify-end gap-x-2">
-              <button type="button"
+            <div class="mt-4 flex items-center justify-end gap-x-2 md:mb-4">
+              <button type="submit"
               class="text-purple-700 border-2 border-purple-500 rounded-lg focus:outline-none hover:bg-purple-500 hover:border-purple-500 hover:text-white text-sm py-2 px-4">
               <div class="flex justify-between items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3">

@@ -35,10 +35,7 @@ export default class HomeComponent {
     private _navigationS: NavigationService,
     private _authS: AuthService,
     private router: Router
-  ) {
-    console.log(this.allRoutes, 'rutas padres');
-
-  }
+  ) { }
 
   public closeMenu() {
     this._navigationS.signalMenu.set(false);
@@ -54,7 +51,7 @@ export default class HomeComponent {
     this.touchStartX = event.touches[0].clientX;
   }
 
-  @HostListener('touchend', ['$event'])
+  // @HostListener('touchend', ['$event'])
   onTouchEnd(event: TouchEvent) {
     const touchEndX = event.changedTouches[0].clientX;
     const deltaX = touchEndX - this.touchStartX;
