@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class ClientService {
-  private usersList: any = signal<User[]>([]);
+  public usersList: any = signal<User[]>([]);
 
   constructor(
     private http: HttpClient

@@ -23,7 +23,7 @@ export default class ClientFormComponent {
   private fb = inject(FormBuilder);
   public registerForm!: FormGroup;
   public showPass: boolean = false;
-  public roles: any[] = [];
+  public roles: any;
   public validators = {
     minlength: (min: number) => `Los caracteres minimos son ${min}!`,
     pattern: () => `Rellene el campo correctamente!`,
@@ -39,12 +39,8 @@ export default class ClientFormComponent {
     private toastS: ToastService,
     private router: Router
   ) {
-    this.roleS.getRoles().subscribe(
-      (res: any) => {
-        this.roles = res;
-        console.log(res);
-      }
-    )
+    this.roleS.getRoles().subscribe(res => {});
+    this.roles = this.roleS.getRole();
 
     this.registerForm = this.fb.group({
       name: ['',
