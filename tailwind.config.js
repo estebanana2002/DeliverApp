@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         main: '#111111',
         secondary: '#2F2F2F',
+        tertiary: '#F2EFE6',
         egg: {
           'DEFAULT': '#FFCB74', // Color por defecto
           '100': '#ffe0ab',

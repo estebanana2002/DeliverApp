@@ -51,7 +51,7 @@ export class FormBazarComponent {
       const newProd = [... prods, this.registerForm.value];
       console.log(newProd);
       this.prodSignal.set(newProd);
-      this.toastS.openToast('Se agrego el producto con exito!', 'success', 'Cerrar');
+      this.toastS.openToast('Producto agregado!', 'Se agrego el producto con exito!', 'success', 'Cerrar');
     } else {
       this.registerForm.markAllAsTouched();
     }

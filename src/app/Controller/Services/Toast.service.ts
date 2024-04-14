@@ -16,9 +16,10 @@ export class ToastService {
   public toasts = signal<Toast[]>([]);
 
 
-  public openToast(msg: string, type: string, buttonMsg: string, icon?: string) {
+  public openToast(title: string, msg: string, type: string, buttonMsg: string, icon?: string) {
     const message = msg.length > 45 ? msg.slice(0, 45) + '...' : msg;
     const newToast = {
+      title,
       message,
       type,
       buttonMsg,

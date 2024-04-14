@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ClientService } from '../../Clients/service/client.service';
 import { User } from '../../../Data/Interfaces/User.interface';
+import { DirectiveModule } from '../../../Core/Directives/Directives.module';
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
   imports: [
     CommonModule,
+    DirectiveModule
   ],
   templateUrl: './client-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -6,6 +6,7 @@ import { DirectiveModule } from '../../../Core/Directives/Directives.module';
 import { RoleService } from '../../../Controller/Services/Role.service';
 import { ToastService } from '../../../Controller/Services/Toast.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-client-form',
@@ -50,23 +51,36 @@ export default class ClientFormComponent {
       email: ['', [Validators.required]],
       matricula: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(5)]],
-      confirmPass: ['', [Validators.required]],
-      role_id: [0, [Validators.required]],
+      role_id: ['', [Validators.required]],
     });
   }
 
   public saveUser() {
-    console.log(this.registerForm.value);
 
     if ( this.registerForm.valid ) {
       this.clientS.registerUser(this.registerForm.value).subscribe(
         (response: any) => {
-          this.toastS.openToast('Se agregó al usuario correctamente', 'success', 'Cerrar');
+          this.toastS.openToast('Nuevo usuario agregado', 'Se agregó al usuario correctamente', 'success', 'Cerrar');
           this.router.navigate(['DeliverAppSystem/clients/list']);
+        },
+        (error: any) => {
+          console.log(error, 'response');
+          const {name, username, email, role_id, matricula, password} = error.error.errors;
+          const errors = [name, username, email, role_id, matricula, password];
+          console.log(errors);
+
+          errors.map(
+            (err: any) => {
+              if ( err ) {
+                this.toastS.openToast(error.error.message, err, 'danger', 'Cerrar');
+              }
+            }
+          );
         }
       );
     } else {
-      this.toastS.openToast('Rellene los datos correctamente', 'error', 'Cerrar');
+      this.registerForm.markAllAsTouched();
+      this.toastS.openToast('Error en el registro!', 'Rellene los datos correctamente', 'danger', 'Cerrar');
     }
   }
 
@@ -80,12 +94,6 @@ export default class ClientFormComponent {
         return this.validators.minlength(5);
       } else if (input?.hasError('pattern')) {
         return this.validators.pattern();
-      } else if (input?.hasError('noEstebanana')) {
-        return this.validators.noEstebanana();
-      } else if (input?.hasError('different')) {
-        return this.validators.different();
-      } else if (input?.hasError('repeated')) {
-        return this.validators.repeated();
       }
     }
     return null;

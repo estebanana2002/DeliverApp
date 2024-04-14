@@ -29,6 +29,6 @@ export default class DashboardComponent {
   @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {
     const scrollTop = window.scrollY;
-    this.isHeaderAtTop = scrollTop === 0; // Verifica si el desplazamiento vertical es 0
+    this.isHeaderAtTop = scrollTop === 0;
   }
 }

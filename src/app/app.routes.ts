@@ -41,13 +41,13 @@ export const routes: Routes = [
         children: [
           {
             path: 'list',
-            title: 'Lista de usuarios',
+            title: 'Lista',
             canActivate: [isLogginGuard],
             loadComponent: () => import('./Feature/Components/client-list/client-list.component')
           },
           {
             path: 'register',
-            title: 'Registro de usuarios',
+            title: 'Registro',
             canActivate: [isLogginGuard],
             loadComponent: () => import('./Feature/Components/client-form/client-form.component')
           },

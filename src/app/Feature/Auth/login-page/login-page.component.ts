@@ -50,14 +50,14 @@ export default class LoginPageComponent implements OnInit {
       this.authS.logIn(this.registerForm.value).subscribe(
         (res: any) => {
           console.log(res);
-          this.toastS.openToast(`Bienvenido ${res.user.username}!`, 'success', 'Cerrar');
+          this.toastS.openToast(`Hola ${res.user.username}`, `Bienvenido al sistema!`, 'success', 'Cerrar');
           this.router.navigate(['/DeliverAppSystem/dashboard'])
         }, (error: any) => {
-          this.toastS.openToast('Credenciales incorrectas!', 'danger', 'Cerrar');
+          this.toastS.openToast('Algo salio mal!', 'Credenciales incorrectas!', 'danger', 'Cerrar');
         }
       );
     } else {
-      this.toastS.openToast('Rellene los campos correctamente!', 'danger', 'Cerrar');
+      this.toastS.openToast('Error en el registro!', 'Rellene los campos correctamente!', 'danger', 'Cerrar');
     }
   }
 
