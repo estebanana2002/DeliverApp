@@ -1,24 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ClientService } from '../../Clients/service/client.service';
-import { DirectiveModule } from '../../../Core/Directives/Directives.module';
+import { ClientService } from '../service/client.service';
 import { RoleService } from '../../../Controller/Services/Role.service';
 import { ToastService } from '../../../Controller/Services/Toast.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { DirectiveModule } from '../../../Core/Directives/Directives.module';
 
 @Component({
-  selector: 'app-client-form',
+  selector: 'app-client-edit-form',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
+    CommonModule,
     DirectiveModule
   ],
-  templateUrl: './client-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './client-edit-form.component.html',
 })
-export default class ClientFormComponent {
+export default class ClientEditFormComponent {
 
   private fb = inject(FormBuilder);
   public registerForm!: FormGroup;
@@ -37,46 +36,39 @@ export default class ClientFormComponent {
     private clientS: ClientService,
     private roleS: RoleService,
     private toastS: ToastService,
-    private router: Router
+    private router: Router,
+    private aRouter: ActivatedRoute,
   ) {
+    this.aRouter.params.subscribe(
+      (res: any) => {
+        this.clientS.getUserById(res.id).subscribe(
+          (res: any) => {
+            this.registerForm.reset(res);
+          }
+        );
+      }
+    );
+
     this.roleS.getRoles().subscribe(res => {});
     this.roles = this.roleS.getRole();
 
     this.registerForm = this.fb.group({
+      id: ['', Validators.required],
       name: ['',
       [Validators.required, Validators.minLength(5)]
     ],
       username: ['', [Validators.required]],
       email: ['', [Validators.required]],
       matricula: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
       role_id: ['', [Validators.required]],
     });
   }
 
   public saveUser() {
-
     if ( this.registerForm.valid ) {
-      this.clientS.registerUser(this.registerForm.value).subscribe(
-        (response: any) => {
-          this.toastS.openToast('Nuevo usuario agregado', 'Se agregó al usuario correctamente', 'success', 'Cerrar');
-          this.router.navigate(['DeliverAppSystem/clients/list']);
-        },
-        (error: any) => {
-          console.log(error, 'response');
-          const {name, username, email, role_id, matricula, password} = error.error.errors;
-          const errors = [name, username, email, role_id, matricula, password];
-          console.log(errors);
-
-          errors.map(
-            (err: any) => {
-              if ( err ) {
-                this.toastS.openToast(error.error.message, err, 'danger', 'Cerrar');
-              }
-            }
-          );
-        }
-      );
+      this.clientS.updateUser(this.registerForm.value).subscribe(res => {});
+      this.router.navigateByUrl('DeliverAppSystem/clients/list');
+      this.toastS.openToast('Usuario creado con exito!', 'Se edito al usuario con exito', 'success', 'Cerrar');
     } else {
       this.registerForm.markAllAsTouched();
       this.toastS.openToast('Error en el registro!', 'Rellene los datos correctamente', 'danger', 'Cerrar');
@@ -98,4 +90,3 @@ export default class ClientFormComponent {
     return null;
   }
 }
-

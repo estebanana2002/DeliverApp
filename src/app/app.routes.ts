@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { isLogginGuard } from './Core/Guards/is-loggin.guard';
 import { noLogginGuard } from './Core/Guards/no-loggin.guard';
+import { roleGuard } from './Core/Guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,12 @@ export const routes: Routes = [
             title: 'Registro',
             canActivate: [isLogginGuard],
             loadComponent: () => import('./Feature/Components/client-form/client-form.component')
+          },
+          {
+            path: 'edit-client/:id',
+            title: 'Editar',
+            canActivate: [roleGuard],
+            loadComponent: () => import('./Feature/Clients/client-edit-form/client-edit-form.component')
           },
           {
             path: '**',

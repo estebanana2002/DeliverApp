@@ -24,13 +24,37 @@ export class ClientService {
     );
   }
 
+  public getUserById( id: number ) {
+    return this.http.get(`${environment.api}users/getUserById/${id}`);
+  }
+
   public registerUser( user: User ) {
     return this.http.post(`${environment.api}users/registerUser`, user).pipe(
       map((response: any) => {
-        console.log(response, 'new user');
-
         this.updateSignal(response);
       })
+    );
+  }
+
+  public updateUser( userData: any ) {
+    return this.http.patch(`${environment.api}users/updateUser`, userData).pipe(
+      map((res: any) => {
+        const users = this.usersList().filter((user: any) => user.id !== res.id);
+        const newUsers = [... users, res];
+        const sortUsers = newUsers.sort((a: any, b: any) => a.id - b.id);
+        this.usersList.set(sortUsers);
+      })
+    );
+  }
+
+  public deleteUser( id: number ) {
+    return this.http.delete(`${environment.api}users/deleteUser/${id}`).pipe(
+      map(
+        () => {
+          const newUsers = this.usersList().filter((user: User) => user.id !== id);
+          this.usersList.set(newUsers);
+        }
+      )
     );
   }
 

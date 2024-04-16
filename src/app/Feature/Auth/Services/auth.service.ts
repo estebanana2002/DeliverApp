@@ -24,6 +24,8 @@ export class AuthService {
         if (response.token) {
           // store user jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('token', JSON.stringify(response.token.original));
+          localStorage.setItem('user', JSON.stringify(response.user));
+          console.log(response, 'asftgydashkdfyhuk');
         }
         return response;
       })
@@ -32,6 +34,7 @@ export class AuthService {
 
   public logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     return this.http.delete(`${environment.api}auth/logout`).pipe(
       map((response: any) => {
 
@@ -44,6 +47,20 @@ export class AuthService {
       const token = JSON.parse(localStorage.getItem('token') || '{}') || {};
 
       if ( token.access_token ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public verifyUser() {
+    if ( typeof localStorage !== 'undefined' ) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}') || {};
+      console.log(user);
+
+      if ( user.role?.role === 'admin' ) {
         return true;
       } else {
         return false;
